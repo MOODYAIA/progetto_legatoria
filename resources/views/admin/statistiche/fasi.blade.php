@@ -48,7 +48,7 @@
                                     <strong>Lavorazioni:</strong> {{ $dati['conteggio'] }}
                                 @endif
                             </p>
-                            <p class="mb-1"><strong>Durata Totale:</strong> {{ gmdate('H:i:s', $dati['durata']) }}</p>
+                            <p class="mb-1"><strong>Durata Totale:</strong> {{ gmdate('H:i', $dati['durata']) }}</p>
                             <p class="mb-0">
                                 <strong>Efficienza:</strong>
                                 @if ($fase == 'Taglio')
@@ -61,6 +61,123 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+
+        <div class="card bg-primary mb-4">
+            <h3 class="text-white">Macchine Taglio</h3>
+            <div class="card">
+                <table id="" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><strong>Nome Macchina</strong></th>
+                            <th><strong>Totale Fogli</strong></th>
+                            <th><strong>Tempo Utilizzo</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($taglio_macchine as $stat)
+                            <tr>
+                                <td>{{ $stat['nome_macchina'] }}</td>
+                                <td>{{ $stat['tot_fogli'] }}</td>
+                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card bg-primary mb-4">
+            <h3 class="text-white">Macchine Piega</h3>
+            <div class="card">
+                <table id="" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><strong>Nome Macchina</strong></th>
+                            <th><strong>Totale Copie</strong></th>
+                            <th><strong>Tempo Utilizzo</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($piega_macchine as $stat)
+                            <tr>
+                                <td>{{ $stat['nome_macchina'] }}</td>
+                                <td>{{ $stat['tot_fogli'] }}</td>
+                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card bg-primary mb-4">
+            <h3 class="text-white">Macchine Raccolta</h3>
+            <div class="card">
+                <table id="" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><strong>Nome Macchina</strong></th>
+                            <th><strong>Tempo Utilizzo</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($raccolta_macchine as $stat)
+                            <tr>
+                                <td>{{ $stat['nome_macchina'] }}</td>
+                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card bg-primary mb-4">
+            <h3 class="text-white">Macchine Cucitura</h3>
+            <div class="card">
+                <table id="" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><strong>Nome Macchina</strong></th>
+                            <th><strong>Totale Colpi</strong></th>
+                            <th><strong>Tempo Utilizzo</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($cucitura_macchine as $stat)
+                            <tr>
+                                <td>{{ $stat['nome_macchina'] }}</td>
+                                <td>{{ $stat['tot_colpi'] }}</td>
+                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card bg-primary mb-4">
+            <h3 class="text-white">Macchine Brossura</h3>
+            <div class="card">
+                <table id="" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><strong>Nome Macchina</strong></th>
+                            <th><strong>Tempo Utilizzo</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($brossura_macchine as $stat)
+                            <tr>
+                                <td>{{ $stat['nome_macchina'] }}</td>
+                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

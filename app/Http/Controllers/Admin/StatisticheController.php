@@ -30,20 +30,55 @@ class StatisticheController extends Controller
             return redirect()->back()->withErrors(['Le date selezionate non sono valide']);
         }
 
+
+        // Calcolo durata totale con una bella funzione anonimissima
+        $calcolaDurata = fn ($collezione) =>
+            $collezione->reduce(fn ($carry, $item) =>
+            $carry + Carbon::parse($item->timestamp_fine)->diffInSeconds(Carbon::parse($item->timestamp_inizio)), 0
+        );
+
+        // idem per la conversione in ore
+        $secondi_to_ore = fn ($s) => $s > 0 ? $s / 3600 : 1;
+
         // Raccolta dati
         $taglio = LavorazioniTaglio::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])->get();
         $piega = LavorazioniPiega::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])->get();
         $raccolta = LavorazioniRaccolta::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])->get();
         $cucitura = LavorazioniCucitura::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])->get();
         $brossura = LavorazioniBrossura::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])->get();
-
-        // Calcolo durata totale per fase
-        $calcolaDurata = fn ($collezione) =>
-            $collezione->reduce(fn ($carry, $item) =>
-                $carry + Carbon::parse($item->timestamp_fine)->diffInSeconds(Carbon::parse($item->timestamp_inizio)), 0
-            );
         
-        $secondi_to_ore = fn ($s) => $s > 0 ? $s / 3600 : 1;
+        // creiamo funzione anonima per calcolare l'utilizzo delle macchine
+        $macchineUtilizzo = function ($model, $data_inizio, $data_fine, $extraFields = []) {
+            $selectFields = array_merge(['codice_macchina', 'SUM(TIMESTAMPDIFF(SECOND, timestamp_inizio, timestamp_fine)) as durata'], $extraFields);
+
+            return $model::whereBetween('timestamp_inizio', [$data_inizio, $data_fine])
+                ->groupBy('codice_macchina')
+                ->selectRaw(implode(', ', $selectFields))
+                ->get()
+                ->map(function ($item) use ($extraFields) {
+                    $result = [
+                        'nome_macchina' => $item->codice_macchina,
+                        'durata' => $item->durata,
+                    ];
+                    foreach ($extraFields as $field) {
+                        if (preg_match('/as\s+(\w+)$/i', $field, $matches)) {
+                            $alias = $matches[1];
+                            $result[$alias] = $item->$alias;
+                        }
+                    }
+                    return $result;
+                });
+        };
+
+        $taglio_macchine = $macchineUtilizzo(LavorazioniTaglio::class, $data_inizio, $data_fine, ['SUM(qta_fogli_lavorati) as tot_fogli']);
+        $piega_macchine = $macchineUtilizzo(LavorazioniPiega::class, $data_inizio, $data_fine, ['SUM(n_copie_end - n_copie_start) as tot_fogli']);
+        $raccolta_macchine = $macchineUtilizzo(LavorazioniRaccolta::class, $data_inizio, $data_fine);
+        $cucitura_macchine = $macchineUtilizzo(LavorazioniCucitura::class, $data_inizio, $data_fine, ['SUM(n_colpi_end - n_colpi_start) as tot_colpi']);
+        $brossura_macchine = $macchineUtilizzo(LavorazioniBrossura::class, $data_inizio, $data_fine);
+
+
+
+        
 
         $statistiche = [
             'Taglio' => [
@@ -82,6 +117,11 @@ class StatisticheController extends Controller
         return view('admin.statistiche.fasi', [
             'title' => "Statistiche Generali ( $data_inizio - $data_fine )",
             'statistiche' => $statistiche,
+            'taglio_macchine' => $taglio_macchine,
+            'piega_macchine' => $piega_macchine,
+            'raccolta_macchine' => $raccolta_macchine,
+            'cucitura_macchine' => $cucitura_macchine,
+            'brossura_macchine' => $brossura_macchine,
             'data_inizio' => $data_inizio,
             'data_fine' => $data_fine
         ]);
@@ -174,10 +214,10 @@ class StatisticheController extends Controller
             GROUP BY operatore_data.codice_operatore, operatore_data.data_lavorazione
             ORDER BY operatore_data.codice_operatore, operatore_data.data_lavorazione
         ", [
-            $data_inizio, $data_fine,  // prima sottoquery
+            $data_inizio, $data_fine,  // prima sottoqu
             $data_inizio, $data_fine,  // taglio
-            $data_inizio, $data_fine,  // piegatura
-            $data_inizio, $data_fine,  // raccolta
+            $data_inizio, $data_fine,  // piegatur
+            $data_inizio, $data_fine,  // raccola
             $data_inizio, $data_fine,  // cucitura
             $data_inizio, $data_fine,  // brossura
         ]);

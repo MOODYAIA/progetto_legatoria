@@ -65,8 +65,8 @@ class MacchineController extends Controller
 
         try {
             $macchina->update([
-                'codice_operatore' => $request->codice_operatore,
-                'suffisso_operatore' => $request->suffisso_operatore
+                'codice_macchina' => $request->codice_macchina,
+                'suffisso_macchina' => $request->suffisso_macchina
             ]);
 
             return response()->json([
