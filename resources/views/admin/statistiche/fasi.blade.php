@@ -68,22 +68,24 @@
             <h3 class="text-white">Macchine Taglio</h3>
             <div class="card">
                 <table id="" class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th><strong>Nome Macchina</strong></th>
-                            <th><strong>Totale Fogli</strong></th>
-                            <th><strong>Tempo Utilizzo</strong></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($taglio_macchine as $stat)
+                    <div class="table-responsive">
+                        <thead class="thead-dark">
                             <tr>
-                                <td>{{ $stat['nome_macchina'] }}</td>
-                                <td>{{ $stat['tot_fogli'] }}</td>
-                                <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                                <th><strong>Nome Macchina</strong></th>
+                                <th><strong>Totale Fogli</strong></th>
+                                <th><strong>Tempo Utilizzo</strong></th>
                             </tr>
-                        @endforeach
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            @foreach($taglio_macchine as $stat)
+                                <tr>
+                                    <td>{{ $stat['nome_macchina'] }}</td>
+                                    <td>{{ $stat['tot_fogli'] }}</td>
+                                    <td>{{ gmdate('H:i', $stat['durata']) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </div>
                 </table>
             </div>
         </div>
@@ -92,6 +94,7 @@
             <h3 class="text-white">Macchine Piega</h3>
             <div class="card">
                 <table id="" class="table table-bordered table-striped">
+                    <div class="table-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th><strong>Nome Macchina</strong></th>
@@ -108,6 +111,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    </div>
                 </table>
             </div>
         </div>
@@ -116,6 +120,7 @@
             <h3 class="text-white">Macchine Raccolta</h3>
             <div class="card">
                 <table id="" class="table table-bordered table-striped">
+                    <div class="table-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th><strong>Nome Macchina</strong></th>
@@ -130,6 +135,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    </div>
                 </table>
             </div>
         </div>
@@ -138,6 +144,7 @@
             <h3 class="text-white">Macchine Cucitura</h3>
             <div class="card">
                 <table id="" class="table table-bordered table-striped">
+                    <div class="table-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th><strong>Nome Macchina</strong></th>
@@ -154,6 +161,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    </div>
                 </table>
             </div>
         </div>
@@ -162,6 +170,7 @@
             <h3 class="text-white">Macchine Brossura</h3>
             <div class="card">
                 <table id="" class="table table-bordered table-striped">
+                    <div class="table-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th><strong>Nome Macchina</strong></th>
@@ -176,6 +185,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    </div>
                 </table>
             </div>
         </div>

@@ -13,22 +13,22 @@
 				<div class="row mb-5">
 					<div class="col">
 						<form id="form_entrata">
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <input type="number" class="form-control mt-2" id="codice_commessa" name="codice_commessa" placeholder="codice commessa" style="background-color: #f5f5f5;">
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <input type="text" class="form-control mt-2" id="codice_macchina" name="codice_macchina" placeholder="codice macchina" style="background-color: #f5f5f5;">
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <input type="text" class="form-control mt-2" id="codice_operatore" name="codice_operatore" placeholder="codice operatore" style="background-color: #f5f5f5;">
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <input type="number" class="form-control mt-2" id="segnatura" name="segnatura" placeholder="numero segnatura" style="background-color: #f5f5f5;">
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <input type="number" class="form-control mt-2" id="numero_copie_inizio" name="numero_copie_inizio" placeholder="numero copie contatore" style="background-color: #f5f5f5;">
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-2">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" name="macchina_condivisa" id="macchina_condivisa" value="1">
                                     <label class="form-check-label ms-2" for="macchina_condivisa">Macchina Condivisa</label>

@@ -81,17 +81,22 @@
         @endif
     </div>
 
+    
+
     <div class="clock-container d-lg-block">
         <span id="clock"></span>
-    </div>
-    <div style="position: fixed; top: 0; left: 0;" class="d-lg-block">
-        <a href="{{ route('produzione.home') }}" class="btn btn-success mt-3 m">Produzione</a>
     </div>
 
     <div id="welcome_box" class="welcome-box">
         <h1 id="messaggio_benvenuto"><strong>Benvenuto {{ session('name') }}!</strong></h1>
-        <p class="mb-4"><strong>Accedi alla tua area personale per gestire il tuo profilo e i tuoi progetti.</strong></p>
-        <button id="enter_app_button" onclick="enter_app()" class="btn btn-dashboard btn-lg bg-info"><strong>{{auth()->check() ? 'Entra al Dashboard' : 'Accedi'}}</strong></button>
+
+        <p class="mb-2"><strong>Accedi alla tua area personale per gestire il tuo profilo e i tuoi progetti.</strong></p>
+
+        <button id="enter_app_button" onclick="enter_app()" class="btn btn-dashboard btn-lg {{ auth()->check() ? 'bg-info' : 'bg-success' }} d-block mx-auto mb-2 w-100"><strong>{{ auth()->check() ? 'Entra al Dashboard' : 'Login Dashboard' }}</strong></button>
+
+        <p class="mb-2 mt-5"><strong>Accedi alla area di produzione per cominciare a lavorare.</strong></p>
+        
+        <a href="{{ route('produzione.home') }}" class="btn btn-lg bg-warning d-block mx-auto mt-3 text-dark w-100"><strong>Area Produzione</strong></a>
     </div>
 
     <div id="login_bar" class="d-none col-xl-12 col-md-12 col-md-12">
@@ -99,6 +104,10 @@
             <div class="card-body p-0">
                 <div class="w-100">
                     <div style="background-color: rgba(0, 0, 0, 0.8);" class="p-5 card">
+                        <button type="button" class="btn btn-secondary btn-circle btn-sm mt-2 mb-2 float-right" onclick="window.location.reload();">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        
                         <form class="user w-100" onsubmit="event.preventDefault(); loginAttempt();">
                             @csrf
 
@@ -122,6 +131,7 @@
                             <button type="submit" class="btn btn-primary btn-user btn-block w-100">
                                 Login
                             </button>
+                           
                         </form>
                     </div>
                 </div>

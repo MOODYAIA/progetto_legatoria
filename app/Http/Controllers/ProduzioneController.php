@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{LavorazioniTaglio,LavorazioniPiega,LavorazioniRaccolta,LavorazioniCucitura,LavorazioniBrossura};
+use App\Models\{LavorazioniTaglio,LavorazioniPiega,LavorazioniRaccolta,LavorazioniCucitura,LavorazioniBrossura, Macchine};
 use App\Models\Worker;
 
 class ProduzioneController extends Controller
@@ -66,6 +66,10 @@ class ProduzioneController extends Controller
         $operatore = Worker::where('codice_operatore', $data->codice_operatore)->first();
         if(!$operatore){
             return response()->json(['success' => false, 'message' => "operatore $data->codice_operatore non trovato"],422);
+        }
+        $macchina = Macchine::where('codice_macchina', $data->codice_macchina)->first();
+        if(!$macchina){
+            return response()->json(['success' => false, 'message' => "macchina $data->codice_macchina non trovata"],422);
         }
         if(!is_numeric($data->quantita_fogli) || $data->quantita_fogli <= 0){
             return response()->json(['success' => false, 'message' => "La quantità di fogli deve essere maggiore di zero"],422);
@@ -150,6 +154,11 @@ class ProduzioneController extends Controller
             return response()->json(['success' => false, 'message' => "operatore $data->codice_operatore non trovato", 422]);
         }
 
+        $macchina = Macchine::where('codice_macchina', $data->codice_macchina)->first();
+        if(!$macchina){
+            return response()->json(['success' => false, 'message' => "macchina $data->codice_macchina non trovata"],422);
+        }
+
         if(!is_numeric($data->n_copie_inizio) || $data->n_copie_inizio < 0){
             return response()->json(['success' => false, 'message' => "Il numero di copie inizio deve essere positivo", 422]);
         }
@@ -201,6 +210,11 @@ class ProduzioneController extends Controller
         $operatore = Worker::where('codice_operatore', $data->codice_operatore)->first();
         if(!$operatore){
             return response()->json(['success' => false, 'message' => "operatore $data->codice_operatore non trovato", 422]);
+        }
+
+        $macchina = Macchine::where('codice_macchina', $data->codice_macchina)->first();
+        if(!$macchina){
+            return response()->json(['success' => false, 'message' => "macchina $data->codice_macchina non trovata"],422);
         }
         
         try{
@@ -256,6 +270,11 @@ class ProduzioneController extends Controller
         $operatore = Worker::where('codice_operatore', $data->codice_operatore)->first();
         if(!$operatore){
             return response()->json(['success' => false, 'message' => "operatore $data->codice_operatore non trovato", 422]);
+        }
+
+        $macchina = Macchine::where('codice_macchina', $data->codice_macchina)->first();
+        if(!$macchina){
+            return response()->json(['success' => false, 'message' => "macchina $data->codice_macchina non trovata"],422);
         }
 
         if(!is_numeric($data->colpi_inizio) || $data->colpi_inizio < 0){
@@ -329,6 +348,11 @@ class ProduzioneController extends Controller
         $operatore = Worker::where('codice_operatore', $data->codice_operatore)->first();
         if(!$operatore){
             return response()->json(['success' => false, 'message' => "operatore $data->codice_operatore non trovato", 422]);
+        }
+
+        $macchina = Macchine::where('codice_macchina', $data->codice_macchina)->first();
+        if(!$macchina){
+            return response()->json(['success' => false, 'message' => "macchina $data->codice_macchina non trovata"],422);
         }
         
         try{

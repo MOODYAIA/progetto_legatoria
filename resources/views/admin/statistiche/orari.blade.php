@@ -32,7 +32,7 @@
             <table id="datatable-generic" class="table table-bordered table-striped table-dark" style="">
                 <thead class="thead-light">
                     <tr>
-                        <th class="NoSearchbar"><strong>Data</strong></th>
+                        <th><strong>Data</strong></th>
                         <th><strong>Codice Operatore</strong></th>
                         <th><strong>Taglio</strong></th>
                         <th><strong>Piegatura</strong></th>
@@ -41,7 +41,7 @@
                         <th><strong>Brossura</strong></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="">
                     @foreach ($orari as $operatore)
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($operatore->data_lavorazione)->format('d/m/Y') }}</td>

@@ -16,40 +16,40 @@
     @endif
 
     <div class="table-responsive">
-            <table id="datatable-generic" class="table table-bordered table-striped table-dark" style="">
-                <thead class="thead-light">
-                    <tr>
-                        <th><strong>Id</strong></th>
-                        <th><strong>Timestamp Inizio</strong></th>
-                        <th><strong>Timestamp Fine</strong></th>
-                        <th><strong>Codice Operatore</strong></th>
-                        <th><strong>Codice Commessa</strong></th>
-                        <th><strong>Codice Macchina</strong></th>
-                        <th><strong>Start Segnatura</strong></th>
-                        <th><strong>End Segnatura</strong></th>
-                        <th><strong>Qta Fogli</strong></th>
-                        <th><strong>Qta Fogli Lavorati</strong></th>                        
-                    </tr>
-                </thead>
-                <tbody id="userTable">
-                    @foreach($registrazioni_taglio as $lavorazione)
-                    <tr id="row-{{ $lavorazione->id_lavorazione }}">
+        <table id="datatable-generic" class="table table-bordered table-striped table-dark" style="">
+            <thead class="thead-light">
+                <tr>
+                    <th><strong>Id</strong></th>
+                    <th><strong>Timestamp Inizio</strong></th>
+                    <th><strong>Timestamp Fine</strong></th>
+                    <th><strong>Codice Operatore</strong></th>
+                    <th><strong>Codice Commessa</strong></th>
+                    <th><strong>Codice Macchina</strong></th>
+                    <th><strong>Start Segnatura</strong></th>
+                    <th><strong>End Segnatura</strong></th>
+                    <th><strong>Qta Fogli</strong></th>
+                    <th><strong>Qta Fogli Lavorati</strong></th>                        
+                </tr>
+            </thead>
+            <tbody id="userTable">
+                @foreach($registrazioni_taglio as $lavorazione)
+                <tr id="row-{{ $lavorazione->id_lavorazione }}">
 
-                        <td>{{ $lavorazione->id_lavorazione }}</td>
-                        <td>{{ $lavorazione->timestamp_inizio ? \Carbon\Carbon::parse($lavorazione->timestamp_inizio)->format('d/m/Y H:i') : $lavorazione->timestamp_inizio }}</td>
-                        <td>{{ $lavorazione->timestamp_fine ? \Carbon\Carbon::parse($lavorazione->timestamp_fine)->format('d/m/Y H:i') : $lavorazione->timestamp_fine }}</td>
-                        <td>{{ $lavorazione->codice_operatore }}</td>
-                        <td>{{ $lavorazione->codice_commessa }}</td>
-                        <td>{{ $lavorazione->codice_macchina }}</td>
-                        <td>{{ $lavorazione->start_segnatura }}</td>
-                        <td>{{ $lavorazione->end_segnatura }}</td>
-                        <td>{{ $lavorazione->qta_fogli }}</td>
-                        <td>{{ $lavorazione->qta_fogli_lavorati }}</td>
-                        
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    <td>{{ $lavorazione->id_lavorazione }}</td>
+                    <td>{{ $lavorazione->timestamp_inizio ? \Carbon\Carbon::parse($lavorazione->timestamp_inizio)->format('d/m/Y H:i') : $lavorazione->timestamp_inizio }}</td>
+                    <td>{{ $lavorazione->timestamp_fine ? \Carbon\Carbon::parse($lavorazione->timestamp_fine)->format('d/m/Y H:i') : $lavorazione->timestamp_fine }}</td>
+                    <td>{{ $lavorazione->codice_operatore }}</td>
+                    <td>{{ $lavorazione->codice_commessa }}</td>
+                    <td>{{ $lavorazione->codice_macchina }}</td>
+                    <td>{{ $lavorazione->start_segnatura }}</td>
+                    <td>{{ $lavorazione->end_segnatura }}</td>
+                    <td>{{ $lavorazione->qta_fogli }}</td>
+                    <td>{{ $lavorazione->qta_fogli_lavorati }}</td>
+                    
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
